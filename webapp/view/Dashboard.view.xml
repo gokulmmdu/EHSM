@@ -1,0 +1,85 @@
+<mvc:View controllerName="ehsmportal.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Page id="dashboardPage" title="{i18n>appTitle} - Dashboard" showNavButton="true" navButtonPress="onNavBack">
+        <headerContent>
+            <Button icon="sap-icon://log" press="onLogout" tooltip="Logout"/>
+        </headerContent>
+        <content>
+            <IconTabBar id="idIconTabBar" expanded="true" class="sapUiResponsiveContentPadding">
+                <items>
+                    <IconTabFilter text="Incident Management" key="incidents">
+                        <Table id="incidentsTable" items="{/incidentSet}" growing="true" growingThreshold="10">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <Title text="Incidents"/>
+                                    <ToolbarSpacer/>
+                                    <SearchField width="20%" search="onFilterIncidents"/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column><Text text="Incident ID"/></Column>
+                                <Column><Text text="Plant"/></Column>
+                                <Column><Text text="Description"/></Column>
+                                <Column><Text text="Category"/></Column>
+                                <Column><Text text="Priority"/></Column>
+                                <Column><Text text="Status"/></Column>
+                                <Column><Text text="Incident Date"/></Column>
+                                <Column><Text text="Completion Date"/></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{IncidentId}"/>
+                                        <Text text="{Plant}"/>
+                                        <Text text="{Description}"/>
+                                        <Text text="{Category}"/>
+                                        <ObjectStatus text="{Priority}" state="{= ${Priority} === 'High' ? 'Error' : 'None' }"/>
+                                        <ObjectStatus text="{Status}" state="{= ${Status} === 'Open' ? 'Warning' : 'Success' }"/>
+                                        <Text text="{path: 'IncidentDate', type: 'sap.ui.model.type.Date'}"/>
+                                        <Text text="{path: 'CompletionDate', type: 'sap.ui.model.type.Date'}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                    
+                    <IconTabFilter text="Risk Assessment" key="risks">
+                         <Table id="risksTable" items="{/riskSet}" growing="true" growingThreshold="10">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <Title text="Risk Assessments"/>
+                                    <ToolbarSpacer/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column><Text text="Risk ID"/></Column>
+                                <Column><Text text="Plant"/></Column>
+                                <Column><Text text="Description"/></Column>
+                                <Column><Text text="Category"/></Column>
+                                <Column><Text text="Severity"/></Column>
+                                <Column><Text text="Likelihood"/></Column>
+                                <Column><Text text="Mitigation"/></Column>
+                                <Column><Text text="Date Identified"/></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{RiskId}"/>
+                                        <Text text="{Plant}"/>
+                                        <Text text="{Description}"/>
+                                        <Text text="{Category}"/>
+                                        <ObjectStatus text="{Severity}" state="{= ${Severity} === 'High' ? 'Error' : 'None' }"/>
+                                        <Text text="{Likelihood}"/>
+                                        <Text text="{Mitigation}"/>
+                                        <Text text="{path: 'IdentificationDate', type: 'sap.ui.model.type.Date'}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+    </Page>
+</mvc:View>
